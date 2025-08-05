@@ -112,13 +112,13 @@ const Donordetails = () => {
               <input type="number" className="form-control" onChange={handleChange} name="Mobilenumber" value={values.Mobilenumber} placeholder="" required/>
 
               <label htmlFor="exampleFormControlInput1" className="form-label">Blood group*</label>
-              <select name="Blood_group" onChange={handleChange} value={values.Blood_group}>
-                <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="AB">AB</option>
-                <option value="O">O</option>
-              </select>
+              <select name="Blood_group" className="select-field" value={values.Blood_group} onChange={handleChange} required>
+  <option value="">Select</option>
+  <option value="A">A</option>
+  <option value="B">B</option>
+  <option value="AB">AB</option>
+  <option value="O">O</option>
+</select>
 
               <label htmlFor="exampleFormControlInput1" className="form-label">State/Country*</label>
               <input type="varchar" className="form-control" onChange={handleChange} name="State" value={values.State} placeholder="" required/>

@@ -16,6 +16,9 @@ import Userprivilege from './Components/Forms/Userprivilege';
 import Company from './Components/Forms/Company';
 import Companydetails from './Components/Forms/Companydetails';
 import SendEmail from './Components/Forms/SendEmail';
+import DonorDashboard from './Components/DonorDashboard';
+import HospitalDashboard from './Components/HospitalDashboard';
+import CompanyDashboard from './Components/CompanyDashboard';
 
 function App() {
   return (
@@ -23,10 +26,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/About" element={<About Us/>}/>
+        <Route path="/About" element={<About/>}/>
         <Route path="/Process" element={<Process/>}/>
         <Route path="/Blog" element={<Blog/>}/>
-        <Route path="/Contact" element={<Contact Us/>}/>
+        <Route path="/Contact" element={<Contact/>}/>
         <Route path="/Donordetails" element={<Donordetails/>} />
         <Route path="/Hospitaldetails" element={<Hospitaldetails/>} />
         <Route path="/SignIn" element={<SignIn/>} />
@@ -36,6 +39,9 @@ function App() {
         <Route path="/Company" element={<Company/>} />
         <Route path="/Companydetails" element={<Companydetails/>} />
         <Route path="/SendEmail" element={<SendEmail/>} />
+        <Route path="/donor/dashboard" element={<DonorDashboard />} />
+        <Route path="/hospital/dashboard" element={<HospitalDashboard />} />
+        <Route path="/company/dashboard" element={<CompanyDashboard />} />
       </Routes>
     </div>
   );

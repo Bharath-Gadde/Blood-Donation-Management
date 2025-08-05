@@ -25,6 +25,7 @@ import { IoArrowForwardCircleOutline } from "react-icons/io5";
 import { BiHeading } from "react-icons/bi";
 import { BiMale } from "react-icons/bi";
 import { FaFemale } from "react-icons/fa";
+
 const Home = () => {
   const navigate = useNavigate();
 
@@ -46,11 +47,12 @@ const Home = () => {
 
   const [maleDonors, setMaleDonors] = useState(0);
   const [femaleDonors, setFemaleDonors] = useState(0);
-
+     
   const [countBloodGroupA, setCountBloodGroupA] = useState(0);
   const [countBloodGroupB, setCountBloodGroupB] = useState(0);
   const [countBloodGroupO, setCountBloodGroupO] = useState(0);
   const [countBloodGroupAB, setCountBloodGroupAB] = useState(0);
+
 
   useEffect(() => {
     const fetchTotalDonors = async () => {
@@ -77,6 +79,8 @@ const Home = () => {
 
     fetchTotalHospitals();
   }, []);
+
+  
 
   useEffect(() => {
     const fetchTotalCompany = async () => {
@@ -138,6 +142,8 @@ const Home = () => {
 
     fetchBloodGroupCounts();
   }, []);
+
+ 
 
   return (
     <section>
@@ -247,50 +253,38 @@ const Home = () => {
             </div>
 
             <div className="blood-results">
-              <h4>Blood group numbers(Donors)</h4>
-              <div className="blood-type">
-
-                <div className="blood-div">
-                  <h6>Blood group: A</h6>
-                  <div className="blood-result">
-                    <span className="placeholder-white">{countBloodGroupA}</span>
-                    <div className="blood-group">
-                      <h5>A</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="blood-div">
-                  <h6>Blood group: B</h6>
-                  <div className="blood-result">
-                    <span className="placeholder-white">{countBloodGroupB}</span>
-                    <div className="blood-group">
-                      <h5>B</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="blood-div">
-                  <h6>Blood group: O</h6>
-                  <div className="blood-result">
-                    <span className="placeholder-white">{countBloodGroupO}</span>
-                    <div className="blood-group">
-                      <h5>O</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="blood-div">
-                  <h6>Blood group: AB</h6>
-                  <div className="blood-result">
-                    <span className="placeholder-white">{countBloodGroupAB}</span>
-                    <div className="blood-group">
-                      <h5>AB</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <h4>Blood group numbers (Donors)</h4>
+  <div className="blood-type">
+    <div className="blood-div">
+      <h6>Blood group: A</h6>
+      <div className="blood-result">
+        <span className="placeholder-white">{countBloodGroupA}</span>
+        <div className="blood-group"><h5>A</h5></div>
+      </div>
+    </div>
+    <div className="blood-div">
+      <h6>Blood group: B</h6>
+      <div className="blood-result">
+        <span className="placeholder-white">{countBloodGroupB}</span>
+        <div className="blood-group"><h5>B</h5></div>
+      </div>
+    </div>
+    <div className="blood-div">
+      <h6>Blood group: O</h6>
+      <div className="blood-result">
+        <span className="placeholder-white">{countBloodGroupO}</span>
+        <div className="blood-group"><h5>O</h5></div>
+      </div>
+    </div>
+    <div className="blood-div">
+      <h6>Blood group: AB</h6>
+      <div className="blood-result">
+        <span className="placeholder-white">{countBloodGroupAB}</span>
+        <div className="blood-group"><h5>AB</h5></div>
+      </div>
+    </div>
+  </div>
+</div>
           </div>
         </div>
       </div>
@@ -298,8 +292,8 @@ const Home = () => {
       <div className="container" id='About'>
         <div className="row">
           <h3>About Us</h3>
-          <p className='container-text'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has
+          <p className='container-text'>
+            Blood donation is a crucial process that helps save lives. Do Donate blood and help those in need. Blood donation is a selfless act that can make a significant difference in the lives of patients who require blood transfusions for various medical conditions. It is a simple and safe process that can be done at designated blood donation centers or during blood drives organized by hospitals, NGOs, or community organizations. <br /><br />
           </p>
 
           <div className="col-12 col-lg-6" >
@@ -396,8 +390,7 @@ const Home = () => {
       <div className="container" id='Blog'>
         <div className="row">
           <h3>Latests Blog</h3>
-          <p className='container-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a
-            dictum. Donec ut est arcu. Donec hendrerit velit consectetur adipiscing elit.</p>
+          <p className='container-text'>Stay updated with the latest news and articles related to blood donation.</p>
 
           <div className="col-12 col-lg-6">
             <div className="Blog-div">
@@ -466,7 +459,7 @@ const Home = () => {
           </div>
           <div className="Contact-text">
             <div className="Contact-copyright">
-              <h5>Copyright &copy; Salad Mohamed | All right reserved.</h5>
+              <h5>Copyright &copy; Bharath Gadde | All right reserved.</h5>
             </div>
 
             <div className="socials">

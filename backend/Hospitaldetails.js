@@ -1,24 +1,27 @@
-const express = require('express');
-const mysql = require('mysql');
-const bcrypt = require('bcrypt');
-const cors = require('cors');
+const express = require("express");
+const mysql = require("mysql2");
+const bcrypt = require("bcrypt");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors({
+app.use(
+  cors({
     origin: "http://localhost:3000",
-    credentials: true
-  }));
-  
+    credentials: true,
+  })
+);
+
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'blood-donation'
+  host: "localhost",
+  user: "root",
+  password: "1234",
+  database: "blood-donation",
 });
 
-app.post('/blood-donation', async (req, res) => {
-  const checkEmailSql = "SELECT COUNT(*) as count FROM hospital WHERE Email = ?";
+app.post("/blood-donation", async (req, res) => {
+  const checkEmailSql =
+    "SELECT COUNT(*) as count FROM hospital WHERE Email = ?";
   const emailExists = await new Promise((resolve, reject) => {
     db.query(checkEmailSql, [req.body.Email], (err, result) => {
       if (err) {
@@ -35,7 +38,8 @@ app.post('/blood-donation', async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(req.body.Password_hash, 10);
 
-  const insertSql = "INSERT INTO hospital (Hospitalname, Email, Password_hash, Contact_number, State, City, Location,  Role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const insertSql =
+    "INSERT INTO hospital (Hospitalname, Email, Password_hash, Contact_number, State, City, Location,  Role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   const values = [
     req.body.Hospitalname,
     req.body.Email,
@@ -45,12 +49,11 @@ app.post('/blood-donation', async (req, res) => {
     req.body.City,
     req.body.Location,
     req.body.Role,
-    
   ];
 
   db.query(insertSql, values, (err, data) => {
     if (err) {
-      console.error('Error:', err);
+      console.error("Error:", err);
       return res.status(500).json({ error: err.message });
     }
     return res.json(data);

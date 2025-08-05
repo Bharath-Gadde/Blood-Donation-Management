@@ -121,16 +121,13 @@ const Hospitalprivilege = () => {
             <div className="search">
               <div className="search-input">
                 <label htmlFor="exampleFormControlInput1" className="form-label">Blood group*</label> <br />
-                <select name="Blood_group" className="select-field" onChange={(e) => {
-                    setBloodGroup(e.target.value);
-                    setBloodGroupError(false);
-                  }} required >
-                  <option value="">Select</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="AB">AB</option>
-                  <option value="O">O</option>
-                </select><br />
+                <select name="Blood_group" className="select-field" onChange={(e) => setBloodGroup(e.target.value)} required>
+  <option value="">Select</option>
+  <option value="A">A</option>
+  <option value="B">B</option>
+  <option value="AB">AB</option>
+  <option value="O">O</option>
+</select><br />
               {bloodGroupError && <span className="error-message">Please select the blood type.</span>}
               </div>
 
@@ -148,30 +145,48 @@ const Hospitalprivilege = () => {
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
-                            <TableRow>
-                                <TableCell padding="checkbox" >
-                                    <input type="checkbox" checked={selectedRows.length === searchResults.length} onChange={() => toggleRowSelection(-1)} />
-                                </TableCell>
-                                {columns2.map((column) => (
-                                    <TableCell key={column} className='column-header'>{column}</TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {searchResults.map((result, index) => (
-                                <TableRow key={index} selected={selectedRows.includes(index)} onClick={() => toggleRowSelection(index)}>
-                                    <TableCell padding="checkbox">
-                                        <input type="checkbox" checked={selectedRows.includes(index)} onChange={() => { }} />
-                                    </TableCell>
-                                    {columns.map((column) => (
-                                        <TableCell key={column}>{result[column]}</TableCell>
-                                    ))}
-                                    <TableCell>
-                                        <button type="button" className="btnDelete btn-danger" onClick={deleteSelectedRows}>Delete</button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
+  <TableRow>
+    <TableCell padding="checkbox">
+      <input
+        type="checkbox"
+        checked={selectedRows.length === searchResults.length && searchResults.length > 0}
+        onChange={toggleSelectAll}
+      />
+    </TableCell>
+    {columns2.slice(0, -1).map((column) => (
+      <TableCell key={column} className="column-header">{column}</TableCell>
+    ))}
+    <TableCell className="column-header">Actions</TableCell>
+  </TableRow>
+</TableHead>
+<TableBody>
+  {searchResults.map((result, index) => (
+    <TableRow key={index} selected={selectedRows.includes(index)}>
+      <TableCell padding="checkbox">
+        <input
+          type="checkbox"
+          checked={selectedRows.includes(index)}
+          onChange={() => toggleRowSelection(index)}
+        />
+      </TableCell>
+      {columns.map((column) => (
+        <TableCell key={column}>{result[column]}</TableCell>
+      ))}
+      <TableCell>
+        <button
+          type="button"
+          className="btnDelete btn-danger"
+          onClick={() => {
+            setSelectedRows([index]);
+            deleteSelectedRows();
+          }}
+        >
+          Delete
+        </button>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
                     </Table>
                 </TableContainer>  
             </div>

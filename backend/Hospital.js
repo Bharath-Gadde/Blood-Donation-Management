@@ -1,35 +1,39 @@
-const express = require('express');
-const mysql = require('mysql');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { createTokens } = require('./JWT');
+const express = require("express");
+const mysql = require("mysql2");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { createTokens } = require("./JWT");
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: ["http://localhost:3000"],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'blood-donation'
+  host: "localhost",
+  user: "root",
+  password: "1234",
+  database: "blood-donation",
 });
 
-app.post('/hospital', async (req, res) => {
+app.post("/hospital", async (req, res) => {
   const { Email, Password } = req.body;
   const sql = "SELECT * FROM hospital WHERE LOWER(Email) = LOWER(?)";
 
   try {
     db.query(sql, [Email], async (err, data) => {
       if (err) {
-        console.error('Error executing the query:', err);
-        return res.status(500).json({ success: false, message: 'Internal Server Error' });
+        console.error("Error executing the query:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Internal Server Error" });
       }
 
       if (data.length === 0) {
@@ -55,12 +59,14 @@ app.post('/hospital', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Unhandled error:', error);
-    return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    console.error("Unhandled error:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
   }
 });
 
-app.post('/logout', (req, res) => {
+app.post("/logout", (req, res) => {
   res
     .clearCookie("access_token", {
       samesite: "none",
@@ -68,8 +74,24 @@ app.post('/logout', (req, res) => {
     })
     .status(200)
     .json("Logout");
-})
+});
 
+app.get("/search-donors", (req, res) => {
+  const { blood_group, location } = req.query;
+
+  const sql = `
+    SELECT * FROM donor_details
+    WHERE Blood_group = ? AND (City = ? OR State = ? OR Home_address LIKE ?)
+  `;
+
+  db.query(sql, [blood_group, location, location, `%${location}%`], (err, data) => {
+    if (err) {
+      console.error("Error executing the query:", err);
+      return res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+    res.status(200).json(data);
+  });
+});
 
 app.listen(3004, () => {
   console.log("Listening...");

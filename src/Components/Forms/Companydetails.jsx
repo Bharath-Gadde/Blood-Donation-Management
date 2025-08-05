@@ -18,6 +18,16 @@ const Companydetails = () => {
 
   const [passwordError, setPasswordError] = useState('');
 
+  // Example function to send email
+const sendEmail = async (to, subject, text) => {
+  try {
+    await axios.post('http://localhost:3008/send-email', { to, subject, text });
+    alert('Email sent!');
+  } catch (error) {
+    alert('Failed to send email. Please try again later.');
+  }
+};
+
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
     if (passwordError) {
